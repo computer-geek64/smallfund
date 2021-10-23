@@ -1,0 +1,15 @@
+[Unit]
+Description=HackGT 8 Backend
+Requires=NetworkManager.service
+Requires=docker.service
+
+[Service]
+Type=simple
+ExecStartPre=-/usr/bin/docker stop -t 5 hackgt8
+ExecStart=/usr/bin/docker run --network host --name hackgt8 --rm hackgt8
+ExecStop=-/usr/bin/docker stop -t 5 hackgt8
+Restart=on-abort
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
