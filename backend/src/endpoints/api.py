@@ -7,9 +7,11 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from flask import Flask
 from flask_cors import CORS
 from config import IP, PORT
+from upload_blueprint import upload_blueprint
 
 
 app = Flask(__name__)
+app.register_blueprint(upload_blueprint)
 CORS(app)
 
 
