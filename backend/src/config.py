@@ -1,6 +1,8 @@
 #!/usr/bin/python3 -B
 # config.py
 
+import os
+
 
 if __name__ == '__main__':
     exit(0)
@@ -8,4 +10,4 @@ if __name__ == '__main__':
 
 # Flask Server
 IP = '0.0.0.0'
-PORT = 8000
+PORT = int(os.environ['PORT'])
