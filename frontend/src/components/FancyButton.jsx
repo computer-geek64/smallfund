@@ -2,6 +2,8 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import ButtonUnstyled, { buttonUnstyledClasses } from '@mui/core/ButtonUnstyled';
 import { styled } from '@mui/system';
+import { Link } from 'react-scroll'
+
 
 const ButtonRoot = React.forwardRef(function ButtonRoot(props, ref) {
   const { children, ...other } = props;
@@ -109,5 +111,9 @@ const SvgButton = React.forwardRef(function SvgButton(props, ref) {
 });
 
 export default function FancyButton() {
-  return <SvgButton>Get started</SvgButton>;
+    return (
+        <Link activeClass="active" to="products" spy={true} smooth={true} offset={50} duration={500}>
+            <SvgButton>Get started</SvgButton>
+        </Link>
+    )
 }

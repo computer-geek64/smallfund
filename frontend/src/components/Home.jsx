@@ -1,7 +1,7 @@
 import Typewriter from 'typewriter-effect';
 import FancyButton from './FancyButton';
 
-const NewListing = () => {
+const Home = () => {
     return (
         <div className="home-container ">
             <span className="home-main-text">
@@ -21,4 +21,4 @@ const NewListing = () => {
 )
 }
 
-export default NewListing;
+export default Home;

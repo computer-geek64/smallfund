@@ -9,6 +9,7 @@ import {
   Route,
 } from "react-router-dom";
 import './App.css';
+import Products from './components/Products';
 
 const darkTheme = createTheme({
   palette: {
@@ -27,7 +28,7 @@ function App() {
 
             <Route exact path="/">
               <Home/>
-              <Home/>
+              <Products/>
             </Route>
 
             <Route path="/add">

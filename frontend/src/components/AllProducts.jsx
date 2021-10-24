@@ -1,6 +1,6 @@
 import Card from './Card';
 
-const Products = () => {
+const AllProducts = () => {
     return (
         <div className="products-container" name="products">
             <div className="product-description">
@@ -21,4 +21,4 @@ const Products = () => {
     )
 }
 
-export default Products;
+export default AllProducts;
