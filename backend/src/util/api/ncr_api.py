@@ -7,8 +7,25 @@ from subprocess import Popen, PIPE, DEVNULL
 def create_access_token(request_url, request_method):
     return Popen(['node', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'accessToken.js'), request_url, request_method], stdout=PIPE, stderr=DEVNULL).communicate()[0].decode().strip()
 
+def send_request(request_url, request_method, payload):
 
-def create_item(item_id, item_name, description, price):
+    date = datetime.datetime.now(datetime.timezone.utc)
+    date = date.strftime("%a, %d %b %Y %H:%M:%S GMT")
+
+    payload = {}
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': create_access_token(request_url, request_method),
+        'nep-organization': 'test-drive-d2525f33ae1741398399d',
+        'Date': date,
+        'Accept': 'application/json',
+        'Accept-Language': 'en-us'
+    }
+
+    response = requests.request(request_method, request_url, headers=headers, data=payload)
+    return response
+
+def create_item(item_id, item_name, description, price, seller_id):
     url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/"+item_id
     request_method = "PUT"
 
@@ -39,6 +56,10 @@ def create_item(item_id, item_name, description, price):
                     {
                         "key": "price",
                         "value": price
+                    },
+                    {
+                        "key": "seller",
+                        "value": seller_id
                     }
                 ]
             }
@@ -58,27 +79,14 @@ def create_item(item_id, item_name, description, price):
     }
 
     response = requests.request(request_method, url, headers=headers, data=payload)
-    print(response)
+    return
 
 
 def get_item(item_id):
-    url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/"+item_id
+    request_url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/"+item_id
     request_method = "GET"
 
-    payload = {}
-    date = datetime.datetime.now(datetime.timezone.utc)
-    date = date.strftime("%a, %d %b %Y %H:%M:%S GMT")
-
-    headers = {
-        'Content-Type': 'application/json',
-        'Authorization': create_access_token(url, request_method),
-        'nep-organization': 'test-drive-d2525f33ae1741398399d',
-        'Date': date,
-        'Accept': 'application/json',
-        'Accept-Language': 'en-us'
-    }
-
-    response = requests.request(request_method, url, headers=headers)#, data=payload)
+    response = send_request(request_url, request_method, {})
     data = response.json()
     print(data)
 
@@ -89,50 +97,35 @@ def get_item(item_id):
     return name, description, price
 
 def update_item(item_id, item_name, description, price):
-    url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/" + item_id
+    request_url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/" + item_id
     request_method = "GET"
-    payload = {}
-    headers = {
-        'Content-Type': 'application/json',
-        'Authorization': create_access_token(url, request_method),
-        'nep-organization': 'test-drive-d2525f33ae1741398399d',
-        'Date': 'Sat, 23 Oct 2021 21:20:30 GMT',
-        'Accept': 'application/json',
-        'Accept-Language': 'en-us'
-    }
-    GET_response = requests.request("GET", url, headers=headers, data=payload)
+    GET_response = send_request(request_url, request_method, {})
     response_dict = json.loads(GET_response)
 
     response_dict['version'] += 1
     response_dict['shortDescription']['values'][0]['values'] = description
     response_dict['dynamicAttributes'][0]['attributes'][0]['value'] = price
     response_dict['dynamicAttributes'][0]['attributes'][1]['value'] = item_name
-    POST_response = requests.request("PUT", url, headers=headers, data=response_dict)
+    request_method = "POST"
+    POST_response = send_request(request_url, request_method, response_dict)
     print(POST_response.text)
 
 
 def delete_item(item_id):
-    url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/" + item_id
+    request_url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/" + item_id
     request_method = "GET"
-    payload = {}
-    headers = {
-        'Content-Type': 'application/json',
-        'Authorization': create_access_token(url, request_method),
-        'nep-organization': 'test-drive-d2525f33ae1741398399d',
-        'Date': 'Sat, 23 Oct 2021 21:20:30 GMT',
-        'Accept': 'application/json',
-        'Accept-Language': 'en-us'
-    }
-    GET_response = requests.request("GET", url, headers=headers, data=payload)
+
+    GET_response = send_request(request_url, request_method, {})
     response_dict = json.loads(GET_response)
 
     response_dict['status'] = 'INACTIVE'
-    POST_response = requests.request("PUT", url, headers=headers, data=response_dict)
+    request_method = "POST"
+    POST_response = send_request(request_url, request_method, response_dict)
     print(POST_response.text)
 
 
 def create_seller():
-    url = "https://gateway-staging.ncrcloud.com/cdm/consumers"
+    request_url = "https://gateway-staging.ncrcloud.com/cdm/consumers"
     request_method = "POST"
 
     payload = {
@@ -156,16 +149,7 @@ def create_seller():
         ]
     }
 
-    headers = {
-        'Content-Type': 'application/json',
-        'Authorization': create_access_token(url, request_method),
-        'nep-organization': 'test-drive-d2525f33ae1741398399d',
-        'Date': 'Sat, 23 Oct 2021 21:20:30 GMT',
-        'Accept': 'application/json',
-        'Accept-Language': 'en-us'
-    }
-
-    response = requests.request(request_method, url, headers=headers, data=payload)
+    response = send_request(request_url, request_method, payload)
     data = response.json()
     print(data)
 
@@ -174,20 +158,10 @@ def create_seller():
     return consumer_id
 
 def get_customer(consumer_account_number):
-    url = "https://gateway-staging.ncrcloud.com/cdm/consumers"+consumer_account_number
+    request_url = "https://gateway-staging.ncrcloud.com/cdm/consumers"+consumer_account_number
     request_method = "GET"
 
-    payload = {}
-    headers = {
-        'Content-Type': 'application/json',
-        'Authorization': create_access_token(url, request_method),
-        'nep-organization': 'test-drive-d2525f33ae1741398399d',
-        'Date': 'Sat, 23 Oct 2021 21:20:30 GMT',
-        'Accept': 'application/json',
-        'Accept-Language': 'en-us'
-    }
-
-    response = requests.request(request_method, url, headers=headers, data=payload)
+    response = send_request(request_url, request_method, {})
     data = response.json()
 
     username = data['profileUsername']
@@ -199,7 +173,36 @@ def get_customer(consumer_account_number):
 
     return username, first_name, birthday, last_name, phone, mobile
 
+def list_of_objects():
+    request_url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/?itemStatus=ACTIVE"
+    request_method = "GET"
+
+    response = send_request(request_url, request_method, {})
+    data = response.json()['pageContent']
+    print(type(data))
+    print(data)
+
+    all_objects = []
+
+    for i in range(len(data)):
+        item = {}
+        item_id = data[i]["itemId"]["itemCode"]
+        description = data[i]["shortDescription"]["value"]
+
+        response = send_request("https://gateway-staging.ncrcloud.com/catalog/v2/items/"+item_id, "GET", {})
+        response_data = response.json()
+        price = response_data['dynamicAttributes'][0]['attributes'][0]['value']
+        name = response_data['dynamicAttributes'][0]["attributes"][1]['value']
+        item['id'] = item_id
+        item['description'] = description
+        item['name'] = name
+        item['price'] = price
+
+        all_objects.append(item)
+
+    return all_objects
+
 # def search_items_criteria(name):
 
 print(create_access_token("https://gateway-staging.ncrcloud.com/catalog/v2/items/itemObject", 'GET'))
-print(get_item("itemObject"))
+print(list_of_objects())
