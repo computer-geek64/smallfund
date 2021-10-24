@@ -1,9 +1,11 @@
-import hashlib
-import hmac
-
-import requests
-import base64
+import os
 import json
+import hmac
+import base64
+import hashlib
+import requests
+from subprocess import Popen, PIPE, DEVNULL
+
 
 def calculateSignature():
     stringToSign = "Test"
@@ -17,9 +19,10 @@ def calculateSignature():
     signature = base64.b64encode(signatureHash)
     print(signature)
 
+
 def create_access_token(request_url, request_method):
-    access_token = ""
-    return access_token
+    return Popen(['/usr/bin/node', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'accessToken.js'), request_url, request_method], stdout=PIPE, stderr=DEVNULL).communicate()[0]
+
 
 def create_item(item_id, item_name, description, price):
     url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/"+item_id
@@ -73,6 +76,7 @@ def create_item(item_id, item_name, description, price):
     response = requests.request(request_method, url, headers=headers, data=payload)
     print(response)
 
+
 def get_item(item_id):
     url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/"+item_id
     request_method = "GET"
@@ -117,6 +121,7 @@ def update_item(item_id, item_name, description, price):
 # def delete_item(item_name):
 #
 #
+
 def create_seller():
     url = "https://gateway-staging.ncrcloud.com/cdm/consumers"
     request_method = "POST"
@@ -160,4 +165,4 @@ def create_seller():
 
 # def search_items_criteria(name):
 
-create_item("1", "spatula", "a kitchen tool", "30")
+print(create_access_token("https://gateway-staging.ncrcloud.com/catalog/v2/items/1", 'PUT'))
