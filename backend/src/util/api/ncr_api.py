@@ -203,11 +203,8 @@ def get_seller(consumer_account_number):
     username = data['profileUsername']
     first_name = data['firstName']
     last_name = data['lastName']
-    birthday = data['birthDate']
-    phone = data['phone']
-    mobile = data['mobile']
 
-    return username, first_name, birthday, last_name, phone, mobile
+    return username, first_name, last_name
 
 def list_of_objects():
     request_url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/?itemStatus=ACTIVE"
