@@ -202,7 +202,5 @@ def list_of_objects():
 
     return all_objects
 
-# def search_items_criteria(name):
-
 print(create_access_token("https://gateway-staging.ncrcloud.com/catalog/v2/items/itemObject", 'GET'))
 print(list_of_objects())
