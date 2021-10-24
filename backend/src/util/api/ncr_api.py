@@ -170,8 +170,6 @@ def create_seller():
         "lastName": "the Builder",
         "effectiveDate": "2021-10-25",
         "gender": "Male",
-        "phone": "4085671266",
-        "mobile": "4081234599",
         "addresses": [
             {
                 "name": "Office",
