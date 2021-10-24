@@ -1,7 +1,9 @@
+import FileUploadPage from './FileUploadPage';
+
 const NewListing = () => {
     return (
         <div>
-            Hey
+            <FileUploadPage />
         </div>
     )
 }
