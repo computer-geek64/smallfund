@@ -10,7 +10,6 @@ RUN npm install crypto-js
 
 RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-361.0.0-linux-x86_64.tar.gz
 RUN tar -xzf google-cloud-sdk-361.0.0-linux-x86_64.tar.gz
-RUN ./google-cloud-sdk/bin/gcloud init
 
 RUN wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
 RUN chmod +x cloud_sql_proxy
