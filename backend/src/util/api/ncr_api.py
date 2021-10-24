@@ -88,8 +88,13 @@ def get_item(item_id):
     }
 
     response = requests.request(request_method, url, headers=headers, data=payload)
+    data = response.json()
 
-    print(response.text)
+    description = data['shortDescription']['values'][0]['value']
+    price = data['dynamicAttributes'][0]['attributes'][0]['value']
+    name = data['dynamicAttributes'][0]["attributes"][1]['value']
+
+    return name, description, price
 
 # def update_item(item_name):
 #
@@ -137,6 +142,32 @@ def create_seller():
     # put consumer id into database connecting to user
     consumer_id = data['consumerAccountNumber']
     return consumer_id
+
+def get_customer(consumer_account_number):
+    url = "https://gateway-staging.ncrcloud.com/cdm/consumers"+consumer_account_number
+    request_method = "GET"
+
+    payload = {}
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': create_access_token(url, request_method),
+        'nep-organization': 'test-drive-d2525f33ae1741398399d',
+        'Date': 'Sat, 23 Oct 2021 21:20:30 GMT',
+        'Accept': 'application/json',
+        'Accept-Language': 'en-us'
+    }
+
+    response = requests.request(request_method, url, headers=headers, data=payload)
+    data = response.json()
+
+    username = data['profileUsername']
+    first_name = data['firstName']
+    last_name = data['lastName']
+    birthday = data['birthDate']
+    phone = data['phone']
+    mobile = data['mobile']
+
+    return username, first_name, birthday, last_name, phone, mobile
 
 # def search_items_criteria(name):
 
