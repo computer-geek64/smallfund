@@ -4,18 +4,18 @@ DROP TABLE IF EXISTS product CASCADE;
 DROP TABLE IF EXISTS seller CASCADE;
 
 -- Create tables
+-- Create table seller
+CREATE TABLE seller (
+    id INTEGER PRIMARY KEY,
+    name CHAR(64) NOT NULL UNIQUE,
+    description VARCHAR
+);
+
 -- Create table product
 CREATE TABLE product (
     id SERIAL PRIMARY KEY,
     name CHAR (64) NOT NULL,
-    condition CHAR (64) NOT NULL DEFAULT "good",
+    condition CHAR (64) NOT NULL,
     seller CHAR (64) NOT NULL REFERENCES seller (name),
     image VARCHAR NOT NULL
-);
-
--- Create table seller
-CREATE TABLE seller (
-    id INTEGER PRIMARY KEY,
-    name CHAR (64) NOT NULL UNIQUE,
-    description VARCHAR
 );
