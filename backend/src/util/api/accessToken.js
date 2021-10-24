@@ -8,7 +8,7 @@ const request = {};
 request.url = process.argv[2];
 request.method = process.argv[3];
 request.headers = {};
-request.headers['nep_organization'] = "test-drive-d2525f33ae1741398399d";
+request.headers['nep-organization'] = "test-drive-d2525f33ae1741398399d";
 
 
 const convertVariables = function(templateContent) {
@@ -18,7 +18,7 @@ const convertVariables = function(templateContent) {
     while (matchedVar !== null) {
         const variableReplacement = matchedVar[1];
         const variableName = matchedVar[2];
-        const variableValue = postman.getEnvironmentVariable(variableName) || postman.getGlobalVariable(variableName);
+        //const variableValue = postman.getEnvironmentVariable(variableName) || postman.getGlobalVariable(variableName);
         convertedContent = convertedContent.replace(variableReplacement, variableValue);
         matchedVar = new RegExp(regexPattern).exec(convertedContent);
     }

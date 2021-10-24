@@ -1,27 +1,11 @@
 import os
 import json
-import hmac
-import base64
-import hashlib
 import requests
+import datetime
 from subprocess import Popen, PIPE, DEVNULL
 
-
-def calculateSignature():
-    stringToSign = "Test"
-    secretAccessKey = "bAvW5O18eSrxke4I7eFcrnrDJkN+wKQmx9aSHuMZQ0w="
-
-    secretAccessKeyBase64 = base64.b64decode(secretAccessKey)
-    keyBytes = secretAccessKeyBase64
-    stringToSignBytes = bytes(stringToSign, 'utf-8')
-
-    signatureHash = hmac.new(keyBytes, stringToSignBytes, digestmod=hashlib.sha256).digest()
-    signature = base64.b64encode(signatureHash)
-    print(signature)
-
-
 def create_access_token(request_url, request_method):
-    return Popen(['/usr/bin/node', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'accessToken.js'), request_url, request_method], stdout=PIPE, stderr=DEVNULL).communicate()[0].decode()
+    return Popen(['node', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'accessToken.js'), request_url, request_method], stdout=PIPE, stderr=DEVNULL).communicate()[0].decode().strip()
 
 
 def create_item(item_id, item_name, description, price):
@@ -82,17 +66,21 @@ def get_item(item_id):
     request_method = "GET"
 
     payload = {}
+    date = datetime.datetime.now(datetime.timezone.utc)
+    date = date.strftime("%a, %d %b %Y %H:%M:%S GMT")
+
     headers = {
         'Content-Type': 'application/json',
         'Authorization': create_access_token(url, request_method),
         'nep-organization': 'test-drive-d2525f33ae1741398399d',
-        'Date': 'Sat, 23 Oct 2021 21:20:30 GMT',
+        'Date': date,
         'Accept': 'application/json',
         'Accept-Language': 'en-us'
     }
 
-    response = requests.request(request_method, url, headers=headers, data=payload)
+    response = requests.request(request_method, url, headers=headers)#, data=payload)
     data = response.json()
+    print(data)
 
     description = data['shortDescription']['values'][0]['value']
     price = data['dynamicAttributes'][0]['attributes'][0]['value']
@@ -102,10 +90,11 @@ def get_item(item_id):
 
 def update_item(item_id, item_name, description, price):
     url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/" + item_id
+    request_method = "GET"
     payload = {}
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'AccessKey 8a4914a9f08b4a45916012763aafe24a:mofshVcVG86ew0wO4dZuWI661la5tm6Lam97qd9PpyyrAibEJTch1D38Op0rgdGrxIBdRHFEJSO0wXC6BxJ5oA==',
+        'Authorization': create_access_token(url, request_method),
         'nep-organization': 'test-drive-d2525f33ae1741398399d',
         'Date': 'Sat, 23 Oct 2021 21:20:30 GMT',
         'Accept': 'application/json',
@@ -124,10 +113,11 @@ def update_item(item_id, item_name, description, price):
 
 def delete_item(item_id):
     url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/" + item_id
+    request_method = "GET"
     payload = {}
     headers = {
         'Content-Type': 'application/json',
-        'Authorization': 'AccessKey 8a4914a9f08b4a45916012763aafe24a:mofshVcVG86ew0wO4dZuWI661la5tm6Lam97qd9PpyyrAibEJTch1D38Op0rgdGrxIBdRHFEJSO0wXC6BxJ5oA==',
+        'Authorization': create_access_token(url, request_method),
         'nep-organization': 'test-drive-d2525f33ae1741398399d',
         'Date': 'Sat, 23 Oct 2021 21:20:30 GMT',
         'Accept': 'application/json',
@@ -177,6 +167,7 @@ def create_seller():
 
     response = requests.request(request_method, url, headers=headers, data=payload)
     data = response.json()
+    print(data)
 
     # put consumer id into database connecting to user
     consumer_id = data['consumerAccountNumber']
@@ -210,4 +201,5 @@ def get_customer(consumer_account_number):
 
 # def search_items_criteria(name):
 
-print(create_access_token("https://gateway-staging.ncrcloud.com/catalog/v2/items/1", 'PUT'))
+print(create_access_token("https://gateway-staging.ncrcloud.com/catalog/v2/items/itemObject", 'GET'))
+print(get_item("itemObject"))
