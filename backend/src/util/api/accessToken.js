@@ -5,8 +5,8 @@ const bsp_site_id = "34f1bad383af4825a242554708c31585";
 const bsp_shared_key = "8a4914a9f08b4a45916012763aafe24a";
 const bsp_secret_key = "9ccb738734ee4b2f92916abbb7547748";
 const request = {};
-request.url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/1";
-request.method = "PUT";
+request.url = process.argv[2];
+request.method = process.argv[3];
 request.headers = {};
 request.headers['nep_organization'] = "test-drive-d2525f33ae1741398399d";
 
