@@ -21,7 +21,7 @@ def calculateSignature():
 
 
 def create_access_token(request_url, request_method):
-    return Popen(['/usr/bin/node', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'accessToken.js'), request_url, request_method], stdout=PIPE, stderr=DEVNULL).communicate()[0]
+    return Popen(['/usr/bin/node', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'accessToken.js'), request_url, request_method], stdout=PIPE, stderr=DEVNULL).communicate()[0].decode()
 
 
 def create_item(item_id, item_name, description, price):
