@@ -4,14 +4,17 @@ import requests
 import datetime
 from subprocess import Popen, PIPE, DEVNULL
 
+
 def create_access_token(request_url, request_method):
     return Popen(['node', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'accessToken.js'), request_url, request_method], stdout=PIPE, stderr=DEVNULL).communicate()[0].decode().strip()
+
 
 def send_request(request_url, request_method, payload):
 
     date = datetime.datetime.now(datetime.timezone.utc)
     date = date.strftime("%a, %d %b %Y %H:%M:%S GMT")
 
+    payload = {}
     headers = {
         'Content-Type': 'application/json',
         'Authorization': create_access_token(request_url, request_method),

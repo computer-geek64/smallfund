@@ -1,7 +1,15 @@
-import Main from './components/Main'
+import Navbar from './components/Navbar';
+import Home from './components/Home';
 import NewListing  from './components/NewListing';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
 import './App.css';
+import Products from './components/Products';
 
 const darkTheme = createTheme({
   palette: {
@@ -13,8 +21,22 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <div className="App">
-        <Main/>
-        <NewListing/>
+        <Router>
+          <Navbar/>
+
+          <Switch>
+
+            <Route exact path="/">
+              <Home/>
+              <Products/>
+            </Route>
+
+            <Route path="/add">
+              <NewListing/>
+            </Route>
+
+          </Switch>
+        </Router>
       </div>
     </ThemeProvider>
   );

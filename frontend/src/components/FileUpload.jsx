@@ -31,7 +31,6 @@ function FileUpload() {
 		formData.forEach(function(value, key){
 			object[key] = value;
 		});
-		console.log(object)
 
 		const config = {
 			method: "post",
