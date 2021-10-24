@@ -1,9 +1,9 @@
-import FileUploadPage from './FileUploadPage';
+import FileUpload from './FileUpload';
 
 const NewListing = () => {
     return (
-        <div>
-            <FileUploadPage />
+        <div className="listing-container ">
+            <FileUpload />
         </div>
     )
 }
