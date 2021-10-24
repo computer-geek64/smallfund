@@ -19,6 +19,8 @@ def allowed_filename(filename):
     if filename.rsplit('.', 1)[1] not in ALLOWED_EXTENSIONS:
         return False
 
+    return True
+
 
 @upload_blueprint.route('/upload', methods=['POST'])
 def post_upload():

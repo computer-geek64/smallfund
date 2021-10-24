@@ -17,21 +17,21 @@ def login(username, password):
 
     return f'AccessToken {token}'
 
-#login("acct:test-drive-d2525f33ae1741398399d@5115addc-be19-4b43-819e-4755c57dc5a1", "f3CS0adi^By*")
+login("8a4914a9f08b4a45916012763aafe24a", "9ccb738734ee4b2f92916abbb7547748")
 
 
-url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/itemObject"
-
-payload={}
-headers = {
-  'Content-Type': 'application/json',
-  'Authorization': 'AccessKey 8a4914a9f08b4a45916012763aafe24a:mofshVcVG86ew0wO4dZuWI661la5tm6Lam97qd9PpyyrAibEJTch1D38Op0rgdGrxIBdRHFEJSO0wXC6BxJ5oA==',
-  'nep-organization': 'test-drive-d2525f33ae1741398399d',
-  'Date': 'Sat, 23 Oct 2021 21:20:30 GMT',
-  'Accept': 'application/json',
-  'Accept-Language': 'en-us'
-}
-
-response = requests.request("GET", url, headers=headers, data=payload)
-
-print(response.text)
+# url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/itemObject"
+#
+# payload={}
+# headers = {
+#   'Content-Type': 'application/json',
+#   'Authorization': 'AccessKey 8a4914a9f08b4a45916012763aafe24a:mofshVcVG86ew0wO4dZuWI661la5tm6Lam97qd9PpyyrAibEJTch1D38Op0rgdGrxIBdRHFEJSO0wXC6BxJ5oA==',
+#   'nep-organization': 'test-drive-d2525f33ae1741398399d',
+#   'Date': 'Sat, 23 Oct 2021 21:20:30 GMT',
+#   'Accept': 'application/json',
+#   'Accept-Language': 'en-us'
+# }
+#
+# response = requests.request("GET", url, headers=headers, data=payload)
+#
+# print(response.text)
