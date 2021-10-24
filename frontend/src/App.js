@@ -11,6 +11,7 @@ import {
 import './App.css';
 import Products from './components/Products';
 import AllProducts from './components/AllProducts';
+import AdvantageCards from './components/AdvantageCards';
 
 const darkTheme = createTheme({
   palette: {
@@ -30,7 +31,7 @@ function App() {
             <Route exact path="/">
               <Home/>
               <Products/>
-              <div className="filler"></div>
+              <AdvantageCards/>
               <AllProducts/>
             </Route>
 
