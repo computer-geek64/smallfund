@@ -2,6 +2,7 @@ import os
 import json
 import requests
 import datetime
+from time import sleep
 from subprocess import Popen, PIPE, DEVNULL
 
 
@@ -14,7 +15,6 @@ def send_request(request_url, request_method, payload):
     date = datetime.datetime.now(datetime.timezone.utc)
     date = date.strftime("%a, %d %b %Y %H:%M:%S GMT")
 
-    payload = {}
     headers = {
         'Content-Type': 'application/json',
         'Authorization': create_access_token(request_url, request_method),
@@ -165,7 +165,7 @@ def create_seller():
     request_method = "POST"
 
     payload = {
-        'profileUsername': "bobthebuilder33@smallbusiness.com",
+        'profileUsername': "bobthebuilder41@smallbusiness.com",
         "firstName": "Bob",
         "lastName": "the Builder",
         "effectiveDate": "2021-10-25",
@@ -187,6 +187,7 @@ def create_seller():
     while(response.status_code != 200):
         response = send_request(request_url, request_method, payload)
     data = response.json()
+    print(data)
 
     # put consumer id into database connecting to user
     consumer_id = data['consumerAccountNumber']
@@ -240,21 +241,21 @@ def list_of_objects():
 
 # def search_items_criteria(name):
 
-# print(create_access_token("https://gateway-staging.ncrcloud.com/catalog/v2/items/itemObject", 'GET'))
-# consumer_id = create_seller()
-# print("Seller created with id {}".format(consumer_id))
-# username, first_name, birthday, last_name, phone, mobile = get_seller("SAIA1XKMZ9R3IGXU")
+print(create_access_token("https://gateway-staging.ncrcloud.com/catalog/v2/items/itemObject", 'GET'))
+consumer_id = create_seller()
+print("Seller created with id {}".format(consumer_id))
+# username, first_name, last_name= get_seller(consumer_id)
 # print("Seller {} {} retrieved".format(first_name, last_name))
-# item_id = "11"
-# create_item(item_id, "Ashish", "dumb but", "1", consumer_id)
-# print("Item Ashish with id {} created with price 1".format(item_id))
-# sleep(5)
-# name, description, price = get_item(item_id)
-# print("Item {} described as {} and price {} retrieved".format(name, description, price))
-# print("All objects: \n")
-# print(list_of_objects())
-# delete_item(item_id)
-# print("Item {} deleted".format(item_id))
-# sleep(5)
-# print("Now all objects are: \n")
-# print(list_of_objects())
+item_id = "13"
+create_item(item_id, "Water Bottle", "a container that holds water", "1.50", consumer_id)
+print("Item Water Bottle with id {} created with price 1.50".format(item_id))
+sleep(5)
+name, description, price = get_item(item_id)
+print("Item {} described as {} and price {} retrieved".format(name, description, price))
+print("All objects: \n")
+print(list_of_objects())
+delete_item(item_id)
+print("Item {} deleted".format(item_id))
+sleep(5)
+print("Now all objects are: \n")
+print(list_of_objects())
