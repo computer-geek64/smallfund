@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import axios from 'axios';
 
 function FileUploadPage() {
@@ -8,25 +8,26 @@ function FileUploadPage() {
 	const [price, setPrice] = useState(null);
 
 	const [isSelected, setIsSelected] = useState(false);
+	const form = useRef(null)
 
 	const changeHandler = (event) => {
 		setSelectedFile(event.target.files[0]);
 		setIsSelected(true);
 	};
 
-	const handleSubmission = () => {
-		const formData = new FormData();
+	const handleSubmission = (event) => {
+		event.preventDefault();
+		console.log(form.current)
+		const formData = new FormData(form.current);
 
-		console.log(productName, description)
-
-		formData.append('name', productName);
-		formData.append('description', description);
-		formData.append('price', price);
-		formData.append('image', selectedFile);
+		// formData.append('name', productName);
+		// formData.append('description', description);
+		// formData.append('price', price);
+		// formData.append('image', selectedFile);
 
 		const config = {
 			method: "post",
-			url: "http://128.61.105.83:8000/",
+			url: "http://128.61.105.83:8000/upload",
 			data: formData,
 			headers: { "Content-Type": "multipart/form-data" },
 		}
@@ -41,9 +42,9 @@ function FileUploadPage() {
 	};
 
 	return(
-   		<div>
-			<input type="file" name="file" onChange={changeHandler} />
-			{isSelected ? (
+   		<form ref={form} onSubmit={handleSubmission}>
+			<input type="file" name="image" onChange={changeHandler} />
+			{/* {isSelected ? (
 				<div>
 					<p>Filename: {selectedFile.name}</p>
 					<p>Filetype: {selectedFile.type}</p>
@@ -55,18 +56,18 @@ function FileUploadPage() {
 				</div>
 			) : (
 				<p>Select a file to show details</p>
-			)}
+			)} */}
 
 			<label for="fname">Name:</label>
-			<input type="text" id="fname" name="fname" onChange={(event) => setProductName(event.target.value)}/>
+			<input type="text" id="fname" name="name" onChange={(event) => setProductName(event.target.value)}/>
 			<label for="lname">Description:</label>
-			<input type="text" id="lname" name="lname" onChange={(event) => setDescripton(event.target.value)}/>
+			<input type="text" id="lname" name="description" onChange={(event) => setDescripton(event.target.value)}/>
 			<label for="lname">Price:</label>
-			<input type="text" id="lname" name="lname" onChange={(event) => setPrice(event.target.value)}/>
+			<input type="text" id="lname" name="price" onChange={(event) => setPrice(event.target.value)}/>
 			<div>
-				<button disabled={productName == null} onClick={handleSubmission}>Submit</button>
+				<button disabled={productName == null}> Submit</button>
 			</div>
-		</div>
+		</form>
 	)
 }
 
