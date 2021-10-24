@@ -2,7 +2,6 @@
 
 FROM python:3.8
 WORKDIR /code
-COPY . .
 
 RUN apt update
 RUN apt install nodejs npm -y
@@ -14,6 +13,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 RUN wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
 RUN chmod +x cloud_sql_proxy
+
+COPY . .
 
 ARG port=8000
 ENV PORT=${port}
