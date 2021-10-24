@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import Card from './Card';
 
 const Products = () => {
+    const [featuredItems, setFeaturedItems] = useState([0,0,0,0])
+    
     return (
         <div className="products-container" name="products">
             <div className="product-description">
@@ -11,12 +14,14 @@ const Products = () => {
                     and overall reuseability.
                 </span>
             </div>
-            <Card 
-                itemId="40"
-                img="https://images.pexels.com/photos/7520587/pexels-photo-7520587.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-                itemName="sample"
-                price="200.00"
-            />
+            {featuredItems.map(() => 
+                <Card 
+                    itemId="40"
+                    img="https://images.pexels.com/photos/7520587/pexels-photo-7520587.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+                    itemName="sample"
+                    price="200.00"
+                />
+            )}
         </div>
     )
 }

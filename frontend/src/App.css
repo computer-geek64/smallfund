@@ -61,21 +61,21 @@
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  padding: 30px;
+  padding: 20px;
   padding-right: 50px;
   max-width: 250px;
 }
 
 .product-heading {
   font-weight: 600;
-  font-size: 30px;
+  font-size: 25px;
   letter-spacing: 2px;
   padding-bottom: 2px;
 }
 
 .product-subheading {
   color: #757de8;
-  font-size: 20px;
+  font-size: 15px;
   padding-bottom: 30px;
 }
 
@@ -83,6 +83,36 @@
   font-size: 15px;
   align-items: flex-start;
   line-height: 1.5;
+}
+
+/* Filler */
+.filler {
+  height: 50vh;
+  background-color: grey;
+}
+
+/* AllProducts */
+.all-products-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 100vw;
+}
+
+.all-products-heading {
+  font-weight: 600;
+  font-size: 25px;
+  letter-spacing: 2px;
+  padding: 5vh;
+}
+
+.all-products-container-layer {
+  color: black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-left: 60px;
 }
 
 /* Card */

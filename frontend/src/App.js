@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import './App.css';
 import Products from './components/Products';
+import AllProducts from './components/AllProducts';
 
 const darkTheme = createTheme({
   palette: {
@@ -29,6 +30,8 @@ function App() {
             <Route exact path="/">
               <Home/>
               <Products/>
+              <div className="filler"></div>
+              <AllProducts/>
             </Route>
 
             <Route path="/add">
