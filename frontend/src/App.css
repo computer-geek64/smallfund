@@ -27,17 +27,18 @@
     rgba(0, 0, 0, 0.7)
   ), url("new-listing-bg.jpg");
   color: antiquewhite;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .main-text {
   font-size: 3vw;
   font-weight: 600;
-  background: -webkit-linear-gradient(180deg, #4169e1, green);
+  background: -webkit-linear-gradient(180deg, #dbf3fa, #757de8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -59,6 +60,7 @@
   display: flex;
   height: 40vh;
   width: 20vw;
+  min-width: 200px;
   border-radius: 20px;
   padding: 5vw;
 }
