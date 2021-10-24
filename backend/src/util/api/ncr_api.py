@@ -4,8 +4,10 @@ import requests
 import datetime
 from subprocess import Popen, PIPE, DEVNULL
 
+
 def create_access_token(request_url, request_method):
     return Popen(['node', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'accessToken.js'), request_url, request_method], stdout=PIPE, stderr=DEVNULL).communicate()[0].decode().strip()
+
 
 def send_request(request_url, request_method, payload):
 
@@ -24,6 +26,7 @@ def send_request(request_url, request_method, payload):
 
     response = requests.request(request_method, request_url, headers=headers, data=payload)
     return response
+
 
 def create_item(item_id, item_name, description, price, seller_id):
     url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/"+item_id
@@ -96,6 +99,7 @@ def get_item(item_id):
 
     return name, description, price
 
+
 def update_item(item_id, item_name, description, price):
     request_url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/" + item_id
     request_method = "GET"
@@ -157,6 +161,7 @@ def create_seller():
     consumer_id = data['consumerAccountNumber']
     return consumer_id
 
+
 def get_customer(consumer_account_number):
     request_url = "https://gateway-staging.ncrcloud.com/cdm/consumers"+consumer_account_number
     request_method = "GET"
@@ -172,6 +177,7 @@ def get_customer(consumer_account_number):
     mobile = data['mobile']
 
     return username, first_name, birthday, last_name, phone, mobile
+
 
 def list_of_objects():
     request_url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/?itemStatus=ACTIVE"
