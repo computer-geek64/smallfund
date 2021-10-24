@@ -122,10 +122,24 @@ def update_item(item_id, item_name, description, price):
     print(POST_response.text)
 
 
+def delete_item(item_id):
+    url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/" + item_id
+    payload = {}
+    headers = {
+        'Content-Type': 'application/json',
+        'Authorization': 'AccessKey 8a4914a9f08b4a45916012763aafe24a:mofshVcVG86ew0wO4dZuWI661la5tm6Lam97qd9PpyyrAibEJTch1D38Op0rgdGrxIBdRHFEJSO0wXC6BxJ5oA==',
+        'nep-organization': 'test-drive-d2525f33ae1741398399d',
+        'Date': 'Sat, 23 Oct 2021 21:20:30 GMT',
+        'Accept': 'application/json',
+        'Accept-Language': 'en-us'
+    }
+    GET_response = requests.request("GET", url, headers=headers, data=payload)
+    response_dict = json.loads(GET_response)
 
-# def delete_item(item_name):
-#
-#
+    response_dict['status'] = 'INACTIVE'
+    POST_response = requests.request("PUT", url, headers=headers, data=response_dict)
+    print(POST_response.text)
+
 
 def create_seller():
     url = "https://gateway-staging.ncrcloud.com/cdm/consumers"
