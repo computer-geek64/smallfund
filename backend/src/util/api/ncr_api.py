@@ -1,6 +1,27 @@
+import hashlib
+import hmac
+
 import requests
 import base64
 import json
+
+def calculateSignature():
+    stringToSign = "Test"
+    secretAccessKey = "bAvW5O18eSrxke4I7eFcrnrDJkN+wKQmx9aSHuMZQ0w="
+
+    secretAccessKeyBase64 = base64.b64decode(secretAccessKey)
+    keyBytes = secretAccessKeyBase64
+    stringToSignBytes = bytes(stringToSign, 'utf-8')
+
+    signatureHash = hmac.new(keyBytes, stringToSignBytes, digestmod=hashlib.sha256).digest()
+    signature = base64.b64encode(signatureHash)
+    print(signature)
+
+def create_access_token(organization, shared_key, secret_key):
+    regexPattern = / ({{(.* ?)}}) / g;
+
+    signature = calculateSignature()
+    access_key = 'AccessKey ' + shared_key + ':' + signature
 
 def create_item(item_id, item_name, description, price):
     url = "https://gateway-staging.ncrcloud.com/catalog/v2/items/"+item_id
