@@ -59,7 +59,6 @@ def create_item(item_id, item_name, description, price):
 
     }
 
-
     payload = json.dumps(payload)
 
     headers = {
@@ -98,7 +97,7 @@ def get_item(item_id):
 # def delete_item(item_name):
 #
 #
-def create_seller(name):
+def create_seller():
     url = "https://gateway-staging.ncrcloud.com/cdm/consumers"
     request_method = "POST"
 
@@ -133,10 +132,12 @@ def create_seller(name):
     }
 
     response = requests.request(request_method, url, headers=headers, data=payload)
+    data = response.json()
 
-    print(response.text)
-#
-#
+    # put consumer id into database connecting to user
+    consumer_id = data['consumerAccountNumber']
+    return consumer_id
+
 # def search_items_criteria(name):
 
 create_item("1", "spatula", "a kitchen tool", "30")
