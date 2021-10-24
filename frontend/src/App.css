@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
 .App {
   text-align: center;
+  font-family: 'Ubuntu', sans-serif;
 }
 
 .App-header {
@@ -19,19 +22,38 @@
 
 /* NewListing */
 .listing-container {
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.7), 
+    rgba(0, 0, 0, 0.7)
+  ), url("new-listing-bg.jpg");
+  color: antiquewhite;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.main-text {
+  font-size: 3vw;
+  font-weight: 600;
+  background: -webkit-linear-gradient(180deg, #4169e1, green);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* FileUpload */
 .form-inputs {
   display: flex;
+  width: 55vw;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5vh 5vw;
 }
 
 .upload-image-container {
-  background-color: #e9f8f8;
+  background-color: rgba(	233,	248,	248, 0.2);
+  color: aliceblue;
   align-items: center;
   justify-content: center;
   display: flex;
@@ -41,11 +63,25 @@
   padding: 5vw;
 }
 
-.uploaded-image {
-  width: 100%;
-  height: 100%;
+.upload-image-container-inside {
+  visibility: hidden;
 }
+
+.uploaded-image {
+  object-fit: cover;
+  width: 25vw;
+  height: 40vh;
+}
+
 .file-upload-text-fields {
+  height: 100%;
+
   display: flex;
   flex-direction: column;
+  align-items: space-between;
+  width: 20vw;
+}
+
+.spacer {
+  height: 3vh;
 }

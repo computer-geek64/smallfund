@@ -4,6 +4,7 @@ import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import Button from '@mui/material/Button';
 
 const Input = styled('input')({
@@ -48,6 +49,7 @@ function FileUpload() {
 		});
 
 		form.current.reset();
+		setUploadedImage(null);
 	};
 
 	return(
@@ -55,26 +57,32 @@ function FileUpload() {
 			
 			<div className="form-inputs">
 				<div className="upload-image-container">
-				{!uploadedImage && 
-					<label htmlFor="icon-button-file">
-						<Input accept="image/*" id="icon-button-file" type="file" name="image" onChange={handleChange}/>
-						<IconButton color="primary" component="span" large>
-							<PhotoCamera />
-						</IconButton>
-					</label>
-				}
+					<div>
+						{uploadedImage && <img className="uploaded-image" src={uploadedImage} alt="uploadedImage"/>}
+						<label htmlFor="icon-button-file">
+							<Input accept="image/*" id="icon-button-file" type="file" name="image" onChange={handleChange}/>
+							<IconButton color="primary" component="span" size="large">
+								{uploadedImage ? <CompareArrowsIcon /> : <PhotoCamera/>}
+							</IconButton>
+							{!uploadedImage ? <div>Upload Image</div> : <div>Replace Image</div>}
+						</label>
+					</div>
 				</div>
-
-				{uploadedImage && <img className="uploaded-image" src={uploadedImage} alt="uploadedImage"/>}
 
 				<div className="file-upload-text-fields">
 					<TextField label="Product name" name="name" variant="outlined" required />
+					<div className="spacer"></div>
 					<TextField label="Description" name="description" variant="outlined" required multiline rows={4}/>
+					<div className="spacer"></div>
 					<TextField label="Price" name="price" variant="outlined" required/>
+					<div className="spacer"></div>
+
+					<div>
+					<Button type="submit" variant="contained"> Submit</Button>
+					</div>
 				</div>
 			</div>
 
-			<Button type="submit" variant="contained"> Submit</Button>
 		</form>
 	)
 }
