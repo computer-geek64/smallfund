@@ -5,19 +5,47 @@
   font-family: 'Ubuntu', sans-serif;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Navbar */ 
+.nav-link {
+  text-decoration: none;
+  color: white;
+}
+
+.nav-link :hover{
+  color: #757de8;
+}
+
+/* Home */
+.home-container {
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.7), 
+    rgba(0, 0, 0, 0.7)
+  ), url("home-bg.jpg");
+  color: antiquewhite;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
+  background-position: center;
 }
 
-.App-link {
-  color: #61dafb;
+.home-header-padding {
+  width: 10px;
+}
+
+.home-main-text {
+  display: flex;
+  font-size: 3vw;
+  font-weight: 600;
+  background: -webkit-linear-gradient(180deg, #dbf3fa, #757de8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.spacer {
+  height: 2vh;
 }
 
 /* NewListing */
@@ -33,6 +61,7 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  background-position: center;
 }
 
 .main-text {

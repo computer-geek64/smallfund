@@ -29,7 +29,7 @@ export default function Navabr() {
                 component="div"
                 sx={{ display: { xs: 'none', sm: 'block' } }}
             >
-                HackGT 8
+                <Link className="nav-link" to="/"> HackGT 8 </Link>
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
             <Autocomplete
@@ -48,7 +48,7 @@ export default function Navabr() {
                         />
                     </>
                 )}
-                sx={{ width: 300 }}
+                sx={{ width: 600 }}
                 size="small"
              />
             <Box sx={{ flexGrow: 1 }} />
