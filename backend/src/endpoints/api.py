@@ -8,10 +8,12 @@ from flask import Flask
 from flask_cors import CORS
 from config import IP, PORT
 from upload_blueprint import upload_blueprint
+from products_blueprint import products_blueprint
 
 
 app = Flask(__name__)
 app.register_blueprint(upload_blueprint)
+app.register_blueprint(products_blueprint)
 CORS(app)
 
 

@@ -2,7 +2,6 @@ import os
 import json
 import requests
 import datetime
-from time import sleep
 from subprocess import Popen, PIPE, DEVNULL
 
 
@@ -213,6 +212,7 @@ def list_of_objects():
 
     response = send_request(request_url, request_method, {})
     while(response.status_code != 200):
+        print(response)
         response = send_request(request_url, request_method, {})
     data = response.json()['pageContent']
 
@@ -241,21 +241,21 @@ def list_of_objects():
 
 # def search_items_criteria(name):
 
-print(create_access_token("https://gateway-staging.ncrcloud.com/catalog/v2/items/itemObject", 'GET'))
-consumer_id = create_seller()
-print("Seller created with id {}".format(consumer_id))
-# username, first_name, last_name= get_seller(consumer_id)
-# print("Seller {} {} retrieved".format(first_name, last_name))
-item_id = "13"
-create_item(item_id, "Water Bottle", "a container that holds water", "1.50", consumer_id)
-print("Item Water Bottle with id {} created with price 1.50".format(item_id))
-sleep(5)
-name, description, price = get_item(item_id)
-print("Item {} described as {} and price {} retrieved".format(name, description, price))
-print("All objects: \n")
-print(list_of_objects())
-delete_item(item_id)
-print("Item {} deleted".format(item_id))
-sleep(5)
-print("Now all objects are: \n")
-print(list_of_objects())
+# print(create_access_token("https://gateway-staging.ncrcloud.com/catalog/v2/items/itemObject", 'GET'))
+# consumer_id = create_seller()
+# print("Seller created with id {}".format(consumer_id))
+# # username, first_name, last_name= get_seller(consumer_id)
+# # print("Seller {} {} retrieved".format(first_name, last_name))
+# item_id = "13"
+# create_item(item_id, "Water Bottle", "a container that holds water", "1.50", consumer_id)
+# print("Item Water Bottle with id {} created with price 1.50".format(item_id))
+# sleep(5)
+# name, description, price = get_item(item_id)
+# print("Item {} described as {} and price {} retrieved".format(name, description, price))
+# print("All objects: \n")
+# print(list_of_objects())
+# delete_item(item_id)
+# print("Item {} deleted".format(item_id))
+# sleep(5)
+# print("Now all objects are: \n")
+# print(list_of_objects())

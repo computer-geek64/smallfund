@@ -21,6 +21,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 ARG port=8000
 ENV PORT=${port}
+ARG db_username=root
+ENV DB_USERNAME=${db_username}
+ARG db_password=NULL
+ENV DB_PASSWORD=${db_password}
 ARG gcp_key_file=hackgt8_gcp_key.json
 ENV GCP_KEY_FILE=${gcp_key_file}
 ARG gcp_project_id=hackgt-8-329918
